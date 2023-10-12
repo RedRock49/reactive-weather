@@ -1,94 +1,47 @@
 import Image from 'next/image'
-import styles from './page.module.css'
+import Forecast from './components/forecast'
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main >
+      <header className='sideBar'>
+        <div id="searchField">
+          <button id='searchButton'><Image src="/search.svg" height={35} width={35} alt="Search Icon" /></button>
+          <input type='search' id='searchBar' placeholder='Search...'/>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <button id='locationButton'  className='Button' type='button'>
+            <Image src='/location.svg' alt='Location Icon' className='buttonIcon' width={35} height={35} />
+            <p className='buttonText'>Location</p>
+        </button>
+        <ul id='favouriteCityList'>
+          <li>
+            <button className='favouriteCityButton Button' type='button'>
+              <Image src='./star.svg' alt='Favourite City' className='buttonIcon' width={35} height={35} />
+              <p className='buttonText'>Moscow</p>
+            </button>
+          </li>
+        </ul>
+        <button id='settingsButton' className='Button'  type='button'>
+            <Image src='/settings.svg' alt='Location Icon' className='buttonIcon' width={35} height={35} />
+            <p className='buttonText'>Settings</p>
+        </button>
+      </header>
+      <div id='mainPage'>
+        <div id='centralColumn'>
+          <p id='selectedCityName'>Odintsovo</p>
+          <div id='forecastCurrent'></div>
+          <div id='hourlyForecast'>
+            <div className='textContainer'><p className='blockText'>HOURLY FORECAST</p></div>
+            <div></div>
+          </div>
+          <div id='tenDayForecast'>
+            <div className='textContainer'><p className='blockText'>10-DAY FORECAST</p></div>
+            <div>
+              <Forecast day='Tomorrow, 19 sept ' min='+10' max='20' image="./Forecast_Icons/Overcast.svg" condition='Overcast' imageWidth={45} imageHeight={45} />
+            </div>
+          </div>
+          <button id='favoriteButton'></button>
+        </div>
       </div>
     </main>
   )

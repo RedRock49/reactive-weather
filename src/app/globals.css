@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -87,12 +89,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(134deg, #5DA2E1 19.58%, #FFF 100%);
 }
 
 a {
@@ -104,4 +101,139 @@ a {
   html {
     color-scheme: dark;
   }
+}
+#mainPage{
+  background: linear-gradient(134deg, #5DA2E1 19.58%, #FFF 100%);
+}
+.sideBar {
+  display:flex;
+  flex-direction: column;
+  background-color: #F6EDED;
+  width: fit-content;
+  height:100%;
+  padding: 0.63rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.11);
+  box-shadow: 1px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  position: fixed;
+}
+.buttonIcon {
+  margin-right:0.94rem;
+}
+.Button {
+  background-color: transparent;
+  border-radius: 0.875rem;
+  border: 1px solid #A1A1A1;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.69rem 0.94rem;
+  margin-top: 0.63rem;
+  width: 100%;
+}
+.buttonText{
+  Color: #4d4d4d;
+  font-size: 1.25rem;
+  font-family: Inter, sans-serif;
+}
+#locationButton{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:flex-start;
+  padding:0.69rem 0.94rem;
+}
+#searchField{
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+}
+#searchBar{
+  background-color: #D9D9D9;
+  color: #4d4d4d;
+  border: 0;
+  font-size: 20;
+  border-radius: 0px 10px 10px 0px;
+}
+#searchButton{
+  background-color: #D9D9D9;
+  border:0;
+  border-radius: 10px 0px 0px 10px;
+}
+#favouriteCityList{
+  width: 100%;
+  list-style-type:none;
+  padding: 0;
+  margin:0;
+}
+
+#settingsButton{
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+#mainPage{
+  background: linear-gradient(134deg, #5DA2E1 19.58%, #FFF 100%);
+  height:100%;
+  width: 100%;
+  position:relative ;
+  z-index: -1;
+  margin-left:212px;
+  display: flex;
+}
+#centralColumn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.blockText{
+  margin: 0.37rem 0px 0.37rem 0.37rem ;
+  color: #4D4D4D;
+}
+.textContainer{
+  border-bottom:1px solid #d0d0d0;
+  width:100%;
+}
+#hourlyForecast{
+  background-color:#F6EDED ;
+  border-radius: 0.625rem;
+  width: 37rem;
+  height: 7.8125rem;
+}
+#tenDayForecast{
+  width: 37rem;
+  height: 28.5625rem;
+  background-color: #F6EDED;
+  border-radius: 0.625rem;
+  margin-top: 0.94rem;
+}
+
+/*
+Forecast Component Stylying 
+*/
+#forecastContainer{
+  width: 80%;
+  height: 15%;
+  display: flex;
+  background-color: grey;
+  border-radius: 0.625rem;
+  margin: 0.625rem;
+  padding: 0.625rem;
+}
+#forecastLeftSideContainer{
+  align-items: space-between;
+}
+#forecastDayText{
+  color: #4D4D4D;
+  font-family: Inter;
+  
+}
+#forecastDayPrescText{
+  font-family: Inter;
+  color: #4D4D4D;
+}
+#forecastDayConditionsText{
+  color: #4d4d4d;
+  font-family: Inter;
 }
