@@ -213,21 +213,35 @@ a {
 Forecast Component Stylying 
 */
 #forecastContainer{
-  width: 80%;
   height: 15%;
   display: flex;
-  background-color: grey;
   border-radius: 0.625rem;
   margin: 0.625rem;
   padding: 0.625rem;
+  background-image: url('/Overcast.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.15),
+    0px 3px 7px 0px inset rgba(0, 0, 0, 0.11);
 }
 #forecastLeftSideContainer{
-  align-items: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width:100%;
+}
+#forecastRightSideContainer{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: max-content;
 }
 #forecastDayText{
   color: #4D4D4D;
   font-family: Inter;
-  
 }
 #forecastDayPrescText{
   font-family: Inter;
@@ -236,4 +250,6 @@ Forecast Component Stylying
 #forecastDayConditionsText{
   color: #4d4d4d;
   font-family: Inter;
+  text-align: end;
+  font-weight:bold;
 }

@@ -37,7 +37,7 @@ export default function Home() {
           <div id='tenDayForecast'>
             <div className='textContainer'><p className='blockText'>10-DAY FORECAST</p></div>
             <div>
-              <Forecast day='Tomorrow, 19 sept ' min='+10' max='20' image="./Forecast_Icons/Overcast.svg" condition='Overcast' imageWidth={45} imageHeight={45} />
+              <Forecast day='Tomorrow, 19 sept ' min='+10' max='+20' image="./Forecast_Icons/Overcast.svg" condition='Overcast' imageWidth={45} imageHeight={45} />
             </div>
           </div>
           <button id='favoriteButton'></button>
