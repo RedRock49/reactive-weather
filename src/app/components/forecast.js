@@ -7,7 +7,7 @@ const forecast = ({day, min, max, condition, image, imageWidth, imageHeight}) =>
         <div id='forecastContainer'>
             <div id='forecastLeftSideContainer'>
                 <p id='forecastDayText' >{day}</p>
-                <Image src={image} alt='Forecast Icon' width={imageWidth} height={imageHeight}/>
+                <Image className='tenDayForecastSVG' src={image} alt='Forecast Icon' width={imageWidth} height={imageHeight}/>
             </div>
             <div id='forecastRightSideContainer'>
                 <div>
