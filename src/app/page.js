@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Forecast from './components/forecast'
+import Smallbutton from './components/smallbutton'
 
 export default function Home() {
   return (
@@ -29,7 +30,11 @@ export default function Home() {
       <div id='mainPage'>
         <div id='centralColumn'>
           <div id='forecastCurrent'>
-            <p id='selectedCityName'>Odintsovo</p>
+            <div id='selectedCityGroup'>
+              <p id='selectedCityName'>Odintsovo</p>
+              <Smallbutton id='smallButtonCityFav' image='Button_Icons/Favourite.svg' alt='add to favourites Button' imageWidth={16} imageHeight={16} />
+              <Smallbutton id='smallButtonCityReload' image='Button_Icons/Reload.svg' alt='reload Button' imageWidth={18} imageHeight={18} />
+            </div>
             <Image id='currentConditionsSVG' src='Forecast_Icons/Overcast.svg' width={200} height={80} alt=''/>
             <div id='currentConditions'>
               <span id='currentConditionsTemp'>+16°</span>
@@ -52,7 +57,6 @@ export default function Home() {
               <Forecast day='Tomorrow, 19 sept ' min='+10' max='+20' image="./Forecast_Icons/Overcast.svg" condition='Overcast' imageWidth={70} imageHeight={70} />
             </div>
           </div>
-          <button id='favoriteButton'></button>
         </div>
       </div>
     </main>
