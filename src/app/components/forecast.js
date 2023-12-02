@@ -2,7 +2,6 @@ import {React} from 'react';
 import Image from 'next/image';
 
 const forecast = ({day, min, max, condition, image, imageWidth, imageHeight}) => {
-
     return(
         <div id='forecastContainer'>
             <div id='forecastLeftSideContainer'>
