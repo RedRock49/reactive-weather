@@ -5,7 +5,7 @@ import Forecast from './components/forecast'
 
 export default function Home() { 
   async function FetchData() {
-    let apiKey = "";
+    let apiKey = "f25eb0c9e99da668d815941d1d4e7539";
     let units = "Metric";
     let cityName = document.getElementById("selectedCityName").innerHTML;
     let positionUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=2&appid=${apiKey}`;
@@ -42,11 +42,55 @@ export default function Home() {
     document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.floor(data.main.temp)}°`;
     //document.getElementById("selectedCityName").innerHTML = data.name; -- Made for location
   }
-  async function Grt(){
-    let response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    let data = response.json();
+
+  
+  async function fetchDataAccu(){
+    let geoCode;
+    let lon;
+    let lat;
+
+
+    //Determening location
+    let isLocation = false;
     
-    console.log(data[1]);
+    //Check if need to know location
+    if(isLocation) {
+      /*
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(fetchData);
+      }else{
+        console.log("GeoLocation is not supported or permitted");
+      }*/
+    }else{
+      //Standard GeoPostion request settings
+      let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5";
+      let geoLang = "en-us";
+      let geoDetails = true;
+      let topLevel = false;
+      let location = document.getElementById('selectedCityName').innerHTML;
+      //Requesting GeoPositional info
+      let geoPositionUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${location}&language=${geoLang}&details=${geoDetails}&toplevel=${topLevel}`;
+      let response = await fetch(geoPositionUrl);
+      let data = await response.json();
+      geoCode = data[0].Key;
+
+      //Current conditions request settings
+      let CondDetails = true;
+
+      let CurrentConditionsUrl = `http://dataservice.accuweather.com/currentconditions/v1/${geoCode}?apikey=${apiKey}&details=${CondDetails}`;
+      response = await fetch(CurrentConditionsUrl);
+      data = await response.json();
+
+      let sign = "";
+      if(data[0].Temperature.Metric.Value >= 0){
+        sign = "+"
+      }
+
+      document.getElementById("Wind").innerHTML = `Wind: ${data[0].Wind.Direction.English} ${Math.floor(data[0].Wind.Speed.Metric.Value)} km/h`;
+      document.getElementById("Humidity").innerHTML = `Humidity: ${data[0].RelativeHumidity}%`;
+      document.getElementById("currentConditionsWeatherType").innerHTML = data[0].WeatherText;
+      document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.floor(data[0].Temperature.Metric.Value)}°`;
+    }
   }
   return (
     <main>
@@ -55,7 +99,7 @@ export default function Home() {
           <div id='forecastCurrent'>
             <div id='selectedCityGroup'>
               <p id='selectedCityName'>Odintsovo</p>
-              <button className='smallButtonButton' type='button' onClick={Grt}>
+              <button className='smallButtonButton' type='button' onClick={fetchDataAccu}>
                 <div className='smallButton'>
                     <Image className='smallButtonImg' src='Button_Icons/Favourite.svg' alt='add to favourites' width={16} height={16}/> 
                 </div>
