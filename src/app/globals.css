@@ -262,8 +262,9 @@ a {
   background-color:#F6EDED ;
   border-radius: 0.625rem;
   width: 37rem;
-  height: 7.8125rem;
+  height: fit-content;
   margin-top: 0.94rem;
+  padding-bottom: 0.5rem;
 }
 /* Ten Day Forecast CSS */
 #tenDayForecast{
@@ -342,4 +343,37 @@ Forecast Component Stylying
 }
 .smallButtonButton:hover{
   cursor:pointer;
+}
+
+
+/* Hourly Forecast Component Styling */
+.hourlyForecastDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 0.5rem;
+  width: fit-content;
+  padding-right:0.2rem;
+}
+.hourlyForecastTime{
+  color: #4D4D4D;
+  margin: 0.62rem 0rem 0.62rem;
+  font-size: 1rem;
+}
+.hourlyForecastConditionsSvg{
+  height: fit-content;
+}
+.hourlyForecastTemp{
+  color: #000;
+  margin: 0.62rem 0rem 0.62rem;
+  font-size:0.9rem;
+}
+
+
+#listOfHForecasts{
+  display: flex;
+  overflow-x: scroll;
+}
+#HForecast12{
+  margin-right:0.5rem;
 }

@@ -2,48 +2,9 @@
 
 import Image from 'next/image'
 import Forecast from './components/forecast'
+import HourlyForecast from './components/hourforecast';
 
 export default function Home() { 
-  async function FetchData() {
-    let apiKey = "f25eb0c9e99da668d815941d1d4e7539";
-    let units = "Metric";
-    let cityName = document.getElementById("selectedCityName").innerHTML;
-    let positionUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=2&appid=${apiKey}`;
-    
-    
-    let positionResponse = await fetch(positionUrl);
-    let data = await positionResponse.json();
-    let lattitude = data[0].lat;
-    let longitude = data[0].lon;
-
-    let conditionsUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lattitude}&units=${units}&lon=${longitude}&appid=${apiKey}`;
-    let conditionsResponse = await fetch(conditionsUrl);
-    data = await conditionsResponse.json();
-    let windDegrees = data.wind.deg;
-    let windDirection = 'N';
-    if(windDegrees >= 315 || windDegrees <= 45){
-      windDirection = "N";
-    }else if(windDegrees > 45 && windDegrees <= 135){
-      windDirection = "E"
-    }else if(windDegrees > 135 && windDegrees <= 225){
-      windDirection = "S"
-    }else if(windDegrees > 225 && windDegrees <= 315){
-      windDirection = "W"
-    }
-    
-    let sign = "";
-    if(data.main.temp >= 0){
-      sign = "+"
-    }
-
-    document.getElementById("Wind").innerHTML = `Wind: ${windDirection} ${Math.floor(data.wind.speed)} m/s`;
-    document.getElementById("Humidity").innerHTML = `Humidity: ${data.main.humidity}%`;
-    document.getElementById("currentConditionsWeatherType").innerHTML = data.weather[0].main;
-    document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.floor(data.main.temp)}°`;
-    //document.getElementById("selectedCityName").innerHTML = data.name; -- Made for location
-  }
-
-  
   async function fetchDataAccu(){
     let geoCode;
     let lon;
@@ -82,7 +43,7 @@ export default function Home() {
       data = await response.json();
 
       let sign = "";
-      if(data[0].Temperature.Metric.Value >= 0){
+      if(data[0].Temperature.Metric.Value > 0){
         sign = "+"
       }
 
@@ -90,6 +51,93 @@ export default function Home() {
       document.getElementById("Humidity").innerHTML = `Humidity: ${data[0].RelativeHumidity}%`;
       document.getElementById("currentConditionsWeatherType").innerHTML = data[0].WeatherText;
       document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.floor(data[0].Temperature.Metric.Value)}°`;
+      document.getElementById("HForecast+0").childNodes.item(2).innerHTML = `${sign}${Math.floor(data[0].Temperature.Metric.Value)}°`;
+
+      //Hourly Forecast request
+      let hourlyDetails = 'false';
+      let hourlyLang = 'en-us';
+      let hourlyIsMetric = 'true';
+
+      let hourlyForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${geoCode}?apikey=${apiKey}&language=${hourlyLang}&details=${hourlyDetails}&metric=${hourlyIsMetric}`;
+      response = await fetch(hourlyForecastUrl);
+      data = await response.json();
+
+      let list = document.getElementById("listOfHForecasts")
+
+      for(let i = 0;i < data.length ;i++){
+        let forecast = document.getElementById("HForecast+0").cloneNode(true);
+        forecast.setAttribute("id",`HForecast${i+1}`);
+        forecast.childNodes.item(0).innerHTML = data[i].DateTime.slice(11,16);
+        if(data[i].Temperature.Value > 0){
+          sign = "+";
+        }else{
+          sign = "";
+        }
+        forecast.childNodes.item(2).innerHTML = Math.floor(data[i].Temperature.Value) + "°";
+        let forecastImage = forecast.childNodes.item(1);
+        /*switch(data[i].WeatherIcon){
+          case (1 || 2 || 3 || 4):
+            forecastImage.setAttribute //clear(sunny) DONE
+            break;
+          case (7 || 8):
+            forecastImage.setAttribute //cloudy(anyTime) DONE
+            break;
+          case 6:
+            forecastImage.setAttribute //cloudy(sunny) DONE
+            break;
+          case (11 || 5 || 37):
+            forecastImage.setAttribute //fog TODO
+            break;
+          case (12 || 18):
+            forecastImage.setAttribute //rain(anyTime) TODO
+            break;
+          case(13 || 14):
+            forecastImage.setAttribute //rain(sunny) TODO
+            break;
+          case(16 || 17):
+            forecastImage.setAttribute //thunder(sunny) TODO
+            break;
+          case 15:
+            forecastImage.setAttribute //thunder(anyTime) TODO
+            break;
+          case (20 || 21 || 23):
+            forecastImage.setAttribute //snow(sunny) TODO 
+            break;
+          case (19 || 22):
+            forecastImage.setAttribute //snow(anyTime) TODO 
+            break;
+          case (24 || 25 || 26 || 29):
+            forecastImage.setAttribute //sleet TODO
+            break;
+          case 30:
+            forecastImage.setAttribute //Hot TODO
+            break;
+          case 31:
+            forecastImage.setAttribute //Cold TODO
+            break;
+          case 32:
+            forecastImage.setAttribute //Windy TODO
+            break;
+          case (33 || 34 || 35 || 36):
+            forecastImage.setAttribute //clear(moon) TODO
+            break;
+          case 38:
+            forecaseImage.setAttribute //cloudy(moon) TODO
+            break;
+          case (39 || 40):
+            forecastImage.setAttribute //rain(moon) TODO
+            break;
+          case (41 || 42):
+            forecastImage.setAttribute //thunder(moon) TODO
+            break;
+          case (43 || 44):
+            forecastImage.setAttribute //snow(moon) TODO 
+            break;
+        } 
+        */
+        list.appendChild(forecast);
+      } 
+
     }
   }
   return (
@@ -104,7 +152,7 @@ export default function Home() {
                     <Image className='smallButtonImg' src='Button_Icons/Favourite.svg' alt='add to favourites' width={16} height={16}/> 
                 </div>
               </button>
-              <button className='smallButtonButton' type='button' onClick={FetchData}>
+              <button className='smallButtonButton' type='button' onClick={fetchDataAccu}>
                 <div className='smallButton'>
                     <Image className='smallButtonImg' src='Button_Icons/Reload.svg' alt='reload' width={18} height={18}/> 
                 </div>
@@ -123,10 +171,12 @@ export default function Home() {
             <p id='rainPrescription'>Rain Awaited at 19:20</p>
           </div>
           <div id='hourlyForecast'>
-            <div className='textContainer'><p className='blockText'>HOURLY FORECAST</p></div>
-            <div>
-
+            <div>            
+              <div className='textContainer'><p className='blockText'>HOURLY FORECAST</p></div>
             </div>
+            <ul id='listOfHForecasts'>
+              <HourlyForecast id='HForecastNow' time='Now' weatherCondition='./Forecast_Icons/Overcast.svg' temp='+16' />
+            </ul>
           </div>
           <div id='tenDayForecast'>
             <div className='textContainer'><p className='blockText'>10-DAY FORECAST</p></div>
