@@ -24,7 +24,7 @@ export default function Home() {
       }*/
     }else{
       //Standard GeoPostion request settings
-      let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5";
+      let apiKey = "aCgdk10GDCR8SdKonAnP1BPxAcIMOgVz5";
       let lang = "en-us";
       let geoDetails = true;
       let topLevel = false;
@@ -60,10 +60,10 @@ export default function Home() {
             case (1 || 2 || 3 || 4):
               conditionsImage.setAttribute('src','./Forecast_Icons/Sunny.svg');
               HForecastImage.setAttribute('src','./Forecast_Icons/Sunny.svg'); //clear(sunny)
-              HForecastImage.setAttribute('width',80);
-              HForecastImage.setAttribute('height',80);
-              conditionsImage.setAttribute('width',38);
-              conditionsImage.setAttribute('height',38);
+              HForecastImage.setAttribute('width',38);
+              HForecastImage.setAttribute('height',38);
+              conditionsImage.setAttribute('width',80);
+              conditionsImage.setAttribute('height',80);
               break;
             case (7 || 8):
               conditionsImage.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //cloudy(anyTime) 
@@ -120,10 +120,10 @@ export default function Home() {
             case (33 || 34 || 35 || 36):
               conditionsImage.setAttribute('src','./Forecast_Icons/Moon.svg'); //Moon
               HForecastImage.setAttribute('src','./Forecast_Icons/Moon.svg');
-              HForecastImage.setAttribute('width',80);
-              HForecastImage.setAttribute('height',80);
-              conditionsImage.setAttribute('width',38);
-              conditionsImage.setAttribute('height',38);
+              HForecastImage.setAttribute('width',38);
+              HForecastImage.setAttribute('height',38);
+              conditionsImage.setAttribute('width',80);
+              conditionsImage.setAttribute('height',80);
               break;
             case 38:
               conditionsImage.setAttribute('src','./Forecast_Icons/Cloudy_moon.svg'); //cloudy(moon)
@@ -140,6 +140,8 @@ export default function Home() {
             case (43 || 44):
               conditionsImage.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //snow(moon)
               HForecastImage.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg');
+              HForecastImage.setAttribute('width',50);
+              HForecastImage.setAttribute('height',50);
               break;
           }
 
@@ -240,8 +242,12 @@ export default function Home() {
       /*for(let i = 0;i < data.length; i++){
         let fiveDayForecast = document.getElementById('fiveDayForecast');
       }*/
-      
+
     }
+  }
+  function envVars(){
+    console.log(process.env.API_KEY);
+    console.log(process.env.keys());
   }
   return (
     <main>
@@ -250,7 +256,7 @@ export default function Home() {
           <div id='forecastCurrent'>
             <div id='selectedCityGroup'>
               <p id='selectedCityName'>Odintsovo</p>
-              <button className='smallButtonButton' type='button' onClick={fetchData}>
+              <button className='smallButtonButton' type='button' onClick={envVars}>
                 <div className='smallButton'>
                     <Image className='smallButtonImg' src='Button_Icons/Favourite.svg' alt='add to favourites' width={16} height={16}/> 
                 </div>
