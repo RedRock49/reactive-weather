@@ -149,12 +149,12 @@ a {
 #searchField{
   display: flex;
   flex-direction: row;
-  border-radius: 10px;
+  border-radius: 0px 10px 10px 0px;
 }
 #searchBar{
   background-color: #D9D9D9;
   color: #4d4d4d;
-  border: 0;
+  border: 0px;
   font-size: 20;
   border-radius: 0px 10px 10px 0px;
 }
@@ -266,8 +266,8 @@ a {
   margin-top: 0.94rem;
   padding-bottom: 0.5rem;
 }
-/* Ten Day Forecast CSS */
-#tenDayForecast{
+/* Five Day Forecast CSS */
+#fiveDayForecast{
   width: 37rem;
   height: fit-content;
   background-color: #F6EDED;
@@ -279,7 +279,7 @@ a {
 /*
 Forecast Component Stylying 
 */
-#forecastContainer{
+.forecastContainer{
   height: 15%;
   display: flex;
   border-radius: 0.625rem;
@@ -291,6 +291,9 @@ Forecast Component Stylying
   background-position-y: center;
   box-shadow: 0rem 0.25rem 0.25rem 0rem rgba(0,0,0,0.15),
     0rem 0.1875rem 0.4375rem 0rem inset rgba(0, 0, 0, 0.11);
+}
+#forecastContainer{
+  display: none;
 }
 #forecastLeftSideContainer{
   display: flex;
@@ -320,7 +323,7 @@ Forecast Component Stylying
   text-align: end;
   font-weight:bold;
 }
-.tenDayForecastSVG{
+.fiveDayForecastSVG{
   height: fit-content;
   margin-top: 0.7rem;
   margin-bottom: -0.4rem;

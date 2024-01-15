@@ -30,10 +30,6 @@ export default function RootLayout({ children }) {
               </button>
             </li>
           </ul>
-          <button id='settingsButton' className='Button'  type='button'>
-            <Image src='./Button_Icons/Settings.svg' alt='Location Icon' className='buttonIcon' width={35} height={35} />
-            <p className='buttonText'>Settings</p>
-          </button>
         </header>
         <div className={font.className}>{children}</div>
       </body>

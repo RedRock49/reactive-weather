@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 const forecast = ({day, min, max, condition, image, imageWidth, imageHeight}) => {
     return(
-        <div id='forecastContainer'>
+        <div className='forecastContainer' id='forecastContainer'>
             <div id='forecastLeftSideContainer'>
                 <p id='forecastDayText' >{day}</p>
-                <Image className='tenDayForecastSVG' src={image} alt='Forecast Icon' width={imageWidth} height={imageHeight}/>
+                <Image className='fiveDayForecastSVG' src={image} alt='Forecast Icon' width={imageWidth} height={imageHeight}/>
             </div>
             <div id='forecastRightSideContainer'>
                 <div>
