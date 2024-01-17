@@ -5,16 +5,16 @@ const forecast = ({day, min, max, condition, image, imageWidth, imageHeight}) =>
     return(
         <div className='forecastContainer' id='forecastContainer'>
             <div id='forecastLeftSideContainer'>
-                <p id='forecastDayText' >{day}</p>
+                <p id='forecastDayText' className='forecastText' >{day}</p>
                 <Image className='fiveDayForecastSVG' src={image} alt='Forecast Icon' width={imageWidth} height={imageHeight}/>
             </div>
             <div id='forecastRightSideContainer'>
                 <div>
-                   <p id='forecastDayPrescText'>Max: {max}</p>
-                   <p id='forecastDayPrescText'>Min: {min}</p>
+                   <p id='forecastDayPrescText' className='forecastText'>Max: {max}</p>
+                   <p id='forecastDayPrescText' className='forecastText'>Min: {min}</p>
                 </div>
                 <div>
-                    <p id='forecastDayConditionsText'>{condition}</p>
+                    <p id='forecastDayConditionsText' className='forecastText'>{condition}</p>
                 </div>
             </div>
         </div>

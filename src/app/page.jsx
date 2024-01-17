@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Forecast from './components/forecast'
 import HourlyForecast from './components/hourforecast';
-import React, {useState} from 'react';
+import React from 'react';
 
 export default function Home() { 
   async function fetchData(){
@@ -31,7 +31,7 @@ export default function Home() {
         sign = "+"
       }
 
-      document.getElementById("Wind").innerHTML = `Wind: ${data[0].Wind.Direction.English} ${Math.round(data[0].Wind.Speed.Metric.Value)} km/h`;
+      document.getElementById("Wind").innerHTML = `Wind: ${data[0].Wind.Direction.English} ${Math.round(data[0].Wind.Speed.Metric.Value)}km/h`;
       document.getElementById("Humidity").innerHTML = `Humidity: ${data[0].RelativeHumidity}%`;
       document.getElementById("currentConditionsWeatherType").innerHTML = data[0].WeatherText;
       document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.round(data[0].Temperature.Metric.Value)}°`;
@@ -280,89 +280,183 @@ export default function Home() {
         mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).innerHTML = data.DailyForecasts[i].Day.IconPhrase;
         const date = (new Date(data.DailyForecasts[i].EpochDate*1000)).toDateString().slice(0,10)
         mainElementCopy.childNodes.item(0).childNodes.item(0).innerHTML = date;
-        let Image = mainElementCopy.childNodes.item(0).childNodes.item(1);
+        let image = mainElementCopy.childNodes.item(0).childNodes.item(1);
         switch(data.DailyForecasts[i].Day.Icon){
             case 1:
             case 2:
             case 3:
             case 4:
-              Image.setAttribute('src','./Forecast_Icons/Sunny.svg'); //clear(sunny)
-              Image.setAttribute('width','38');
-              Image.setAttribute('height','38');
+              image.setAttribute('src','./Forecast_Icons/Sunny.svg'); //clear(sunny)
+              image.setAttribute('width','38');
+              image.setAttribute('height','38');
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Sunny.jpg')";
+              mainElementCopy.style.backgroundPositionY= '32%';
               break;
             case 7:
             case 8:
-              Image.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //cloudy(anyTime) 
+              image.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //cloudy(anyTime) 
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Cloudy_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= 'center';
               break;
             case 6:
-              Image.setAttribute('src','./Forecast_Icons/Cloudy_sunny.svg'); //cloudy(sunny)
+              image.setAttribute('src','./Forecast_Icons/Cloudy_sunny.svg'); //cloudy(sunny)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Cloudy_sunny.jpg')";
+              mainElementCopy.style.backgroundPositionY= '10%';
               break;
             case 11:
             case 5:
             case 37:
-              Image.setAttribute('src','./Forecast_Icons/Fog_anytime.svg'); //fog
+              image.setAttribute('src','./Forecast_Icons/Fog_anytime.svg'); //fog
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Fog.jpg')";
+              mainElementCopy.style.backgroundPositionY= 'center';
               break;
             case 12:
             case 18:
-              Image.setAttribute('src','./Forecast_Icons/Rain_anytime.svg'); //rain(anytime)
+              image.setAttribute('src','./Forecast_Icons/Rain_anytime.svg'); //rain(anytime)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Rain_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '15%';
+              //mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 13:
             case 14:
-              Image.setAttribute('src','./Forecast_Icons/Rain_sunny.svg'); //rain(sunny)
+              image.setAttribute('src','./Forecast_Icons/Rain_sunny.svg'); //rain(sunny)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Rain_sunny.jpg')";
+              mainElementCopy.style.backgroundPositionY= '70%';
               break;
             case 16:
             case 17:
-              Image.setAttribute('src','./Forecast_Icons/Thunder_sunny.svg'); //thunder(sunny)
+              image.setAttribute('src','./Forecast_Icons/Thunder_sunny.svg'); //thunder(sunny)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Thunder_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '59%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 15:
-              Image.setAttribute('src','./Forecast_Icons/Thunder_anytime.svg'); //thunder(anytime)
+              image.setAttribute('src','./Forecast_Icons/Thunder_anytime.svg'); //thunder(anytime)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Thunder_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '59%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 20:
             case 21:
             case 23:
-              Image.setAttribute('src','./Forecast_Icons/Snow_sunny.svg'); //snow(sunny)
+              image.setAttribute('src','./Forecast_Icons/Snow_anytime.svg'); //snow(sunny)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Snow_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '15%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 19:
             case 22:
-              Image.setAttribute('src','./Forecast_Icons/Snow_anytime.svg'); //snow(anytime)
+              image.setAttribute('src','./Forecast_Icons/Snow_anytime.svg'); //snow(anytime)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Snow_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '15%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 24:
             case 25:
             case 26:
             case 29:
-              Image.setAttribute('src','./Forecast_Icons/Sleet.svg'); //sleet
+              image.setAttribute('src','./Forecast_Icons/Sleet.svg'); //sleet
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Sleet.jpg')";
+              mainElementCopy.style.backgroundPositionY= '10%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 30:
-              Image.setAttribute('src','./Forecast_Icons/Hot.svg'); //Hot
+              image.setAttribute('src','./Forecast_Icons/Hot.svg'); //Hot
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Hot.jpg')";
+              mainElementCopy.style.backgroundPositionY= 'center';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 31:
-              Image.setAttribute('src','./Forecast_Icons/Cold.svg'); //Cold
+              image.setAttribute('src','./Forecast_Icons/Cold.svg'); //Cold
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Cold.jpg')";
+              mainElementCopy.style.backgroundPositionY= '30%';
+              //mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 32:
-              Image.setAttribute('src','./Forecast_Icons/Windy.svg'); //Windy
+              image.setAttribute('src','./Forecast_Icons/Windy.svg'); //Windy
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Windy.jpg')";
+              mainElementCopy.style.backgroundPositionY= '30%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 33:
             case 34:
             case 35:
             case 36:
-              Image.setAttribute('src','./Forecast_Icons/Moon.svg'); //Moon
-              Image.setAttribute('width',38);
-              Image.setAttribute('height',38);
+              image.setAttribute('src','./Forecast_Icons/Moon.svg'); //Moon
+              image.setAttribute('width',38);
+              image.setAttribute('height',38);
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Moon.jpg')";
+              mainElementCopy.style.backgroundPositionY= '10%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 38:
-              Image.setAttribute('src','./Forecast_Icons/Cloudy_moon.svg'); //cloudy(moon)
+              image.setAttribute('src','./Forecast_Icons/Cloudy_moon.svg'); //cloudy(moon)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Cloudy_moon.jpg')";
+              mainElementCopy.style.backgroundPositionY= '40%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 39:
             case 40:
-              Image.setAttribute('src','./Forecast_Icons/Rain_moon.svg'); //rain(moon)
+              image.setAttribute('src','./Forecast_Icons/Rain_moon.svg'); //rain(moon)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Rain_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '15%';
+              //mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 41:
             case 42:
-              Image.setAttribute('src','./Forecast_Icons/Thunder_moon.svg'); //thunder(moon)
+              image.setAttribute('src','./Forecast_Icons/Thunder_moon.svg'); //thunder(moon)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Thunder_moon.jpg')";
+              mainElementCopy.style.backgroundPositionY= '40%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
             case 43:
             case 44:
-              Image.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //snow(moon)
+              image.setAttribute('src','./Forecast_Icons/Cloudy_anytime.svg'); //snow(moon)
+              mainElementCopy.style.backgroundImage = "url('./Forecast_Backgrounds/Snow_anytime.jpg')";
+              mainElementCopy.style.backgroundPositionY= '15%';
+              mainElementCopy.childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; // Date
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).style.color = '#F2F2F2'; //Max
+              mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).style.color = '#F2F2F2'; //Min
+              mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).style.color = '#F2F2F2'; //Condition
               break;
         }
         dailyList.appendChild(mainElementCopy);

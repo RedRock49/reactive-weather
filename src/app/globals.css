@@ -83,13 +83,13 @@
 
 html,
 body {
-  max-width: 100vw;
   overflow-x: hidden;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(134deg, #5DA2E1 19.58%, #FFF 100%);
+  background-attachment:fixed;
 }
 
 a {
@@ -97,7 +97,7 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
@@ -149,19 +149,24 @@ a {
 #searchField{
   display: flex;
   flex-direction: row;
-  border-radius: 0px 10px 10px 0px;
 }
 #searchBar{
   background-color: #D9D9D9;
   color: #4d4d4d;
   border: 0px;
   font-size: 20;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 10px 0px 0px 10px;
+  border:0.0625rem solid #A1A1A1;
+  border-right: none;
 }
 #searchButton{
   background-color: #D9D9D9;
-  border:0;
-  border-radius: 10px 0px 0px 10px;
+  border:0.0625rem solid #A1A1A1;
+  border-left-style: none;
+  border-radius: 0px 10px 10px 0px;
+}
+#searchButton:hover{
+  cursor: pointer;
 }
 #favouriteCityList{
   width: 100%;
@@ -175,8 +180,6 @@ a {
 }
 
 #mainPage{
-  background: linear-gradient(134deg, #5DA2E1 19.58%, #FFF 100%);
-  height:100%;
   width: calc(100% - 12.8125rem);
   position:relative;
   z-index: 1;
@@ -247,7 +250,7 @@ a {
   color: #4D4D4D;
   grid-column: third / last;
   grid-row: second / third; 
-  margin-left: 0.8rem;
+  margin-left: 0.6rem;
   display: flex;
   flex-direction: column;
 }
@@ -280,15 +283,15 @@ a {
 Forecast Component Stylying 
 */
 .forecastContainer{
-  height: 15%;
+  min-height: 7rem;
   display: flex;
   border-radius: 0.625rem;
   margin: 0.625rem;
   padding: 0.625rem;
-  background-image: url('/Overcast.jpg');
+  background-image: url('/Forecast_Backgrounds/Snow_anytime.jpg');
   background-size:cover;
   background-repeat: no-repeat;
-  background-position-y: center;
+  background-position-y: 12%;
   box-shadow: 0rem 0.25rem 0.25rem 0rem rgba(0,0,0,0.15),
     0rem 0.1875rem 0.4375rem 0rem inset rgba(0, 0, 0, 0.11);
 }
@@ -310,15 +313,15 @@ Forecast Component Stylying
   min-width: max-content;
 }
 #forecastDayText{
-  color: #4D4D4D;
   font-family: Inter;
 }
 #forecastDayPrescText{
   font-family: Inter;
+}
+.forecastText{
   color: #4D4D4D;
 }
 #forecastDayConditionsText{
-  color: #4d4d4d;
   font-family: Inter;
   text-align: end;
   font-weight:bold;
