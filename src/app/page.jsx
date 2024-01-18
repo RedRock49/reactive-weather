@@ -5,8 +5,23 @@ import Forecast from './components/forecast'
 import HourlyForecast from './components/hourforecast';
 import React from 'react';
 
-export default function Home() { 
-  async function fetchData(){
+let favourites = [];
+window.onload = function(){
+  favourites = JSON.parse(localStorage.getItem('favourites')) || ['Moscow', 'Odintsovo'];
+  fetchData();
+}
+
+export function search(){
+  let searchQuery = document.querySelector('#searchBar').value;
+  console.log(searchQuery);
+  if (searchQuery == ''){
+    return false;
+  }
+  document.getElementById('selectedCityName').innerHTML = searchQuery;
+  fetchData();
+  document.querySelector('#searchBar').value = '';
+}
+async function fetchData(){
     let geoCode;
       let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5";
       let lang = "en-us";
@@ -18,6 +33,7 @@ export default function Home() {
       let response = await fetch(geoPositionUrl);
       let data = await response.json();
       geoCode = data[0].Key;
+      document.getElementById('selectedCityName').innerHTML = data[0].LocalizedName;
 
       //Current conditions request settings
       let CondDetails = true;
@@ -462,6 +478,8 @@ export default function Home() {
         dailyList.appendChild(mainElementCopy);
       }
     }
+
+export default function Home() {
   return (
     <main>
       <div id='mainPage'>
