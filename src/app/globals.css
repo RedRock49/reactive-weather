@@ -384,3 +384,6 @@ Forecast Component Stylying
 #HForecast12{
   margin-right:0.5rem;
 }
+#favouriteCityExample{
+  display:none;
+}

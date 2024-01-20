@@ -5,22 +5,78 @@ import Forecast from './components/forecast'
 import HourlyForecast from './components/hourforecast';
 import React from 'react';
 
-let favourites = [];
+
 window.onload = function(){
-  favourites = JSON.parse(localStorage.getItem('favourites')) || ['Moscow', 'Odintsovo'];
+  if (!(localStorage.getItem('favourites'))){
+    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
+    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
+  }else{
+    let favourites = JSON.parse(localStorage.getItem('favourites'));
+    document.getElementById('selectedCityName').innerHTML = favourites[0];
+  }
+  reloadFavourites();
   fetchData();
+}
+
+function FavouritesHandle(){
+  let favouriteButton = document.getElementById('favourite_button');
+  let favouriteButtonIcon = favouriteButton.childNodes.item(0).childNodes.item(0);
+  let favourites = JSON.parse(localStorage.getItem('favourites'));
+  let oldLength = favourites.length;
+  if(favouriteButtonIcon.getAttribute('src') == './Button_Icons/Star_empty.svg'){
+    favourites.push(document.getElementById('selectedCityName').innerHTML);
+    favouriteButtonIcon.setAttribute('src','./Button_Icons/Star_filled.svg');
+  }else{
+    favourites.splice(favourites.indexOf(document.getElementById('selectedCityName').innerHTML),1);
+    favouriteButtonIcon.setAttribute('src','./Button_Icons/Star_empty.svg');
+  }
+  localStorage.setItem('favourites',JSON.stringify(favourites));
+  reloadFavourites();
+  console.log(favourites);
+}
+
+function OpenFavouriteCity(index){
+  let favourites = JSON.parse(localStorage.getItem('favourites'));
+  document.getElementById('selectedCityName').innerHTML = favourites[index];
+  fetchData();
+}
+
+function reloadFavourites(){
+  let favourites = JSON.parse(localStorage.getItem('favourites'));
+  let mainElementCopy = document.getElementById('favouriteCityExample').cloneNode(true);
+  let favList = document.getElementById('favouriteCityList');
+  if(favList.children.length != 1){
+    for(let i = 0; i < favList.children.length + 1; i++){ //deleting old ones
+      favList.removeChild(document.getElementById(`favouriteCity${i}`));
+    }
+  }
+  for(let i = 0; i < favourites.length; i++){  //adding new ones
+    mainElementCopy = document.getElementById('favouriteCityExample').cloneNode(true);
+    mainElementCopy.setAttribute('id',`favouriteCity${i}`);
+    mainElementCopy.childNodes.item(1).innerHTML = favourites[i];
+    mainElementCopy.addEventListener('click',function(){
+      OpenFavouriteCity(i);
+    });
+    mainElementCopy.style.display = '';
+    favList.appendChild(mainElementCopy);
+  }
 }
 
 export function search(){
   let searchQuery = document.querySelector('#searchBar').value;
-  console.log(searchQuery);
   if (searchQuery == ''){
     return false;
+  }
+  if (JSON.parse((localStorage.getItem('favourites'))).includes(searchQuery)){
+    document.getElementById('favourite_button').childNodes.item(0).childNodes.item(0).setAttribute('src','./Button_Icons/Star_filled.svg');
+  }else{
+    document.getElementById('favourite_button').childNodes.item(0).childNodes.item(0).setAttribute('src','./Button_Icons/Star_empty.svg');
   }
   document.getElementById('selectedCityName').innerHTML = searchQuery;
   fetchData();
   document.querySelector('#searchBar').value = '';
 }
+
 async function fetchData(){
     let geoCode;
       let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5";
@@ -487,14 +543,14 @@ export default function Home() {
           <div id='forecastCurrent'>
             <div id='selectedCityGroup'>
               <p id='selectedCityName'>Odintsovo</p>
-              <button className='smallButtonButton' type='button' onClick={fetchData}>
+              <button className='smallButtonButton' id='favourite_button' type='button' onClick={FavouritesHandle}>
                 <div className='smallButton'>
-                    <Image className='smallButtonImg' src='Button_Icons/Favourite.svg' alt='add to favourites' width={16} height={16}/> 
+                    <Image className='smallButtonImg' src='./Button_Icons/Star_filled.svg' alt='add to favourites' width={16} height={16}/> 
                 </div>
               </button>
-              <button className='smallButtonButton' type='button' onClick={fetchData}>
+              <button className='smallButtonButton' id='reload_button'  type='button' onClick={fetchData}>
                 <div className='smallButton'>
-                    <Image className='smallButtonImg' src='Button_Icons/Reload.svg' alt='reload' width={18} height={18}/> 
+                    <Image className='smallButtonImg' src='./Button_Icons/Reload.svg' alt='reload' width={18} height={18}/> 
                 </div>
               </button>
             </div>
