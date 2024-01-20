@@ -3,20 +3,7 @@
 import Image from 'next/image'
 import Forecast from './components/forecast'
 import HourlyForecast from './components/hourforecast';
-import React from 'react';
-
-
-window.onload = function(){
-  if (!(localStorage.getItem('favourites'))){
-    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
-    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
-  }else{
-    let favourites = JSON.parse(localStorage.getItem('favourites'));
-    document.getElementById('selectedCityName').innerHTML = favourites[0];
-  }
-  reloadFavourites();
-  fetchData();
-}
+import React, {useEffect} from 'react';
 
 function FavouritesHandle(){
   let favouriteButton = document.getElementById('favourite_button');
@@ -536,6 +523,18 @@ async function fetchData(){
     }
 
 export default function Home() {
+  useEffect(() => { //Runs on page loading
+    if (!(localStorage.getItem('favourites'))){
+    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
+    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
+    }else{
+      let favourites = JSON.parse(localStorage.getItem('favourites'));
+      document.getElementById('selectedCityName').innerHTML = favourites[0];
+    }
+    reloadFavourites();
+    fetchData();
+  }, []);
+
   return (
     <main>
       <div id='mainPage'>
