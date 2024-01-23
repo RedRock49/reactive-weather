@@ -5,11 +5,21 @@ import Forecast from './components/forecast'
 import HourlyForecast from './components/hourforecast';
 import React, {useEffect} from 'react';
 
+
+var isFirst = true;
+/*window.onload = function(){
+  if (!(localStorage.getItem('favourites'))){
+    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
+    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
+  }else{
+    let favourites = JSON.parse(localStorage.getItem('favourites')); document.getElementById('selectedCityName').innerHTML = favourites[0]; } reloadFavourites();
+  fetchData();
+}*/
+
 function FavouritesHandle(){
   let favouriteButton = document.getElementById('favourite_button');
   let favouriteButtonIcon = favouriteButton.childNodes.item(0).childNodes.item(0);
   let favourites = JSON.parse(localStorage.getItem('favourites'));
-  let oldLength = favourites.length;
   if(favouriteButtonIcon.getAttribute('src') == './Button_Icons/Star_empty.svg'){
     favourites.push(document.getElementById('selectedCityName').innerHTML);
     favouriteButtonIcon.setAttribute('src','./Button_Icons/Star_filled.svg');
@@ -25,21 +35,18 @@ function FavouritesHandle(){
 function OpenFavouriteCity(index){
   let favourites = JSON.parse(localStorage.getItem('favourites'));
   document.getElementById('selectedCityName').innerHTML = favourites[index];
+  document.getElementById('favourite_button').childNodes.item(0).childNodes.item(0).setAttribute('src','./Button_Icons/Star_filled.svg');
   fetchData();
 }
 
 function reloadFavourites(){
   let favourites = JSON.parse(localStorage.getItem('favourites'));
-  let mainElementCopy = document.getElementById('favouriteCityExample').cloneNode(true);
   let favList = document.getElementById('favouriteCityList');
-  if(favList.children.length != 1){
-    for(let i = 0; i < favList.children.length + 1; i++){ //deleting old ones
-      favList.removeChild(document.getElementById(`favouriteCity${i}`));
-    }
-  }
+  document.querySelectorAll('.favouriteCity').forEach(e => e.remove());
   for(let i = 0; i < favourites.length; i++){  //adding new ones
-    mainElementCopy = document.getElementById('favouriteCityExample').cloneNode(true);
-    mainElementCopy.setAttribute('id',`favouriteCity${i}`);
+    let mainElementCopy = document.getElementById('favouriteCityExample').cloneNode(true);
+    mainElementCopy.setAttribute('class','favouriteCity favouriteCityButton Button');
+    mainElementCopy.setAttribute('id','favouriteCity' + i);   
     mainElementCopy.childNodes.item(1).innerHTML = favourites[i];
     mainElementCopy.addEventListener('click',function(){
       OpenFavouriteCity(i);
@@ -66,7 +73,7 @@ export function search(){
 
 async function fetchData(){
     let geoCode;
-      let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5";
+      let apiKey = "api_key_goes_here"; //API KEY PLACEHOLDER
       let lang = "en-us";
       let geoDetails = true;
       let topLevel = false;
@@ -524,16 +531,19 @@ async function fetchData(){
 
 export default function Home() {
   useEffect(() => { //Runs on page loading
-    if (!(localStorage.getItem('favourites'))){
-    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
-    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
-    }else{
-      let favourites = JSON.parse(localStorage.getItem('favourites'));
-      document.getElementById('selectedCityName').innerHTML = favourites[0];
+    if(isFirst){
+      if (!(localStorage.getItem('favourites'))){
+        localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
+        document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
+      }else{
+        let favourites = JSON.parse(localStorage.getItem('favourites'));
+        document.getElementById('selectedCityName').innerHTML = favourites[0];
+      }
+      reloadFavourites();
+      fetchData();
+      isFirst = false;
     }
-    reloadFavourites();
-    fetchData();
-  }, []);
+  }); 
 
   return (
     <main>

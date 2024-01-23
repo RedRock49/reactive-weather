@@ -109,7 +109,7 @@ a {
   background-color: #F6EDED;
   width: 12.8125rem;
   height:100vh;
-  padding: 0.63rem;
+  padding: 0rem 0.63rem;
   border-top: 0.0625rem solid rgba(0, 0, 0, 0.11);
   box-shadow: 0.0625rem 0rem 0.25rem 0rem rgba(0, 0, 0, 0.25);
   position: fixed;
@@ -149,21 +149,25 @@ a {
 #searchField{
   display: flex;
   flex-direction: row;
+  margin-top: 0.63rem;
 }
 #searchBar{
   background-color: #D9D9D9;
   color: #4d4d4d;
   border: 0px;
-  font-size: 20;
-  border-radius: 10px 0px 0px 10px;
+  font-size: 1.25rem;
+  border-radius: 0.875rem 0rem 0rem 0.875rem;
   border:0.0625rem solid #A1A1A1;
   border-right: none;
+  width: 100%;
+  padding: 0.69rem 0.94rem;
 }
 #searchButton{
   background-color: #D9D9D9;
   border:0.0625rem solid #A1A1A1;
   border-left-style: none;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0rem 0.875rem 0.875rem 0rem;
+  padding-right: 0.69rem;
 }
 #searchButton:hover{
   cursor: pointer;
@@ -386,4 +390,7 @@ Forecast Component Stylying
 }
 #favouriteCityExample{
   display:none;
+}
+.favouriteCity{
+  color:black;
 }
