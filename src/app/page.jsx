@@ -7,14 +7,6 @@ import React, {useEffect} from 'react';
 
 
 var isFirst = true;
-/*window.onload = function(){
-  if (!(localStorage.getItem('favourites'))){
-    localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
-    document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
-  }else{
-    let favourites = JSON.parse(localStorage.getItem('favourites')); document.getElementById('selectedCityName').innerHTML = favourites[0]; } reloadFavourites();
-  fetchData();
-}*/
 
 function FavouritesHandle(){
   let favouriteButton = document.getElementById('favourite_button');
