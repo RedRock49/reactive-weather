@@ -10,8 +10,8 @@ const forecast = ({day, min, max, condition, image, imageWidth, imageHeight}) =>
             </div>
             <div id='forecastRightSideContainer'>
                 <div>
-                   <p id='forecastDayPrescText' className='forecastText'>Max: {max}</p>
-                   <p id='forecastDayPrescText' className='forecastText'>Min: {min}</p>
+                   <p id='forecastDayPrescText' className='forecastText'>Мин: {max}</p>
+                   <p id='forecastDayPrescText' className='forecastText'>Макс: {min}</p>
                 </div>
                 <div>
                     <p id='forecastDayConditionsText' className='forecastText'>{condition}</p>

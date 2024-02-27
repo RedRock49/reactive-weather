@@ -65,8 +65,8 @@ export function search(){
 
 async function fetchData(){
     let geoCode;
-      let apiKey = "api_key_goes_here"; //API KEY PLACEHOLDER
-      let lang = "en-us";
+      let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5"; //API KEY PLACEHOLDER
+      let lang = "ru-ru";
       let geoDetails = true;
       let topLevel = false;
       let location = document.getElementById('selectedCityName').innerHTML;
@@ -89,8 +89,8 @@ async function fetchData(){
         sign = "+"
       }
 
-      document.getElementById("Wind").innerHTML = `Wind: ${data[0].Wind.Direction.English} ${Math.round(data[0].Wind.Speed.Metric.Value)}km/h`;
-      document.getElementById("Humidity").innerHTML = `Humidity: ${data[0].RelativeHumidity}%`;
+      document.getElementById("Wind").innerHTML = `Ветер: ${data[0].Wind.Direction.Localized} ${Math.round(data[0].Wind.Speed.Metric.Value)}км/ч`;
+      document.getElementById("Humidity").innerHTML = `Влажность: ${data[0].RelativeHumidity}%`;
       document.getElementById("currentConditionsWeatherType").innerHTML = data[0].WeatherText;
       document.getElementById("currentConditionsTemp").innerHTML = `${sign}${Math.round(data[0].Temperature.Metric.Value)}°`;
       document.getElementById("HForecastNow").childNodes.item(2).innerHTML = `${sign}${Math.round(data[0].Temperature.Metric.Value)}°`;
@@ -324,6 +324,13 @@ async function fetchData(){
       data = await response.json();
 
       let dailyList = document.getElementById('dailyContainer');
+
+      const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day:'numeric',
+      };
       
       if(dailyList.childNodes.length != 1){
         for(let i = 0; i < 5; i++){
@@ -333,10 +340,10 @@ async function fetchData(){
       for(let i = 0;i < data.DailyForecasts.length; i++){
         let mainElementCopy = document.getElementById("forecastContainer").cloneNode(true);
         mainElementCopy.setAttribute('id',`forecastContainer${i+1}`);
-        mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).innerHTML = 'Max: ' + Math.round(data.DailyForecasts[i].Temperature.Maximum.Value);
-        mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).innerHTML = 'Min: ' + Math.round(data.DailyForecasts[i].Temperature.Minimum.Value);
+        mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(0).innerHTML = 'Мин: ' + Math.round(data.DailyForecasts[i].Temperature.Maximum.Value);
+        mainElementCopy.childNodes.item(1).childNodes.item(0).childNodes.item(1).innerHTML = 'Макс: ' + Math.round(data.DailyForecasts[i].Temperature.Minimum.Value);
         mainElementCopy.childNodes.item(1).childNodes.item(1).childNodes.item(0).innerHTML = data.DailyForecasts[i].Day.IconPhrase;
-        const date = (new Date(data.DailyForecasts[i].EpochDate*1000)).toDateString().slice(0,10)
+        const date = (new Date(data.DailyForecasts[i].EpochDate*1000)).toLocaleDateString('ru-RU', options).slice(0,10)
         mainElementCopy.childNodes.item(0).childNodes.item(0).innerHTML = date;
         let image = mainElementCopy.childNodes.item(0).childNodes.item(1);
         switch(data.DailyForecasts[i].Day.Icon){
@@ -525,8 +532,8 @@ export default function Home() {
   useEffect(() => { //Runs on page loading
     if(isFirst){
       if (!(localStorage.getItem('favourites'))){
-        localStorage.setItem('favourites',JSON.stringify(['Odintsovo']));
-        document.getElementById('selectedCityName').innerHTML = 'Odintsovo';
+        localStorage.setItem('favourites',JSON.stringify(['Одинцово']));
+        document.getElementById('selectedCityName').innerHTML = 'Одинцово';
       }else{
         let favourites = JSON.parse(localStorage.getItem('favourites'));
         document.getElementById('selectedCityName').innerHTML = favourites[0];
@@ -558,23 +565,23 @@ export default function Home() {
             <Image id='currentConditionsSVG' src='Forecast_Icons/Cloudy_anytime.svg' width={200} height={80} alt=''/>
             <div id='currentConditions'>
               <span id='currentConditionsTemp'>+16°</span>
-              <span id='currentConditionsWeatherType'>Overcast</span>
+              <span id='currentConditionsWeatherType'>Облачно</span>
             </div>
             <div id='currentConditionsPresc'>
-              <span id='Wind'>Wind: SW 22ms/s</span>
-              <span id='Humidity'>Humidity: 100%</span>
+              <span id='Wind'>Ветер: SW 22ms/s</span>
+              <span id='Humidity'>Влажность: 100%</span>
             </div>
           </div>
           <div id='hourlyForecast'>
             <div>            
-              <div className='textContainer'><p className='blockText'>HOURLY FORECAST</p></div>
+              <div className='textContainer'><p className='blockText'>ПОЧАСОВОЙ ПРОГНОЗ</p></div>
             </div>
             <ul id='listOfHForecasts'>
               <HourlyForecast id='HForecastNow' time='Now' weatherCondition='./Forecast_Icons/Cloudy_anytime.svg' temp='+16' />
             </ul>
           </div>
           <div id='fiveDayForecast'>
-            <div className='textContainer'><p className='blockText'>5-DAY FORECAST</p></div>
+            <div className='textContainer'><p className='blockText'>ПРОГНОЗ НА 5 ДНЕЙ</p></div>
             <ul id='dailyContainer'>
               <Forecast day='Today, 14 Jan' min='+10' max='+20' image="./Forecast_Icons/Cloudy_anytime.svg" condition='Overcast' imageWidth={70} imageHeight={70} />
             </ul>

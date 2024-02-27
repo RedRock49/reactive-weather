@@ -1,7 +1,7 @@
 {
   "main": "main/main.js",
   "icon": "build/icon.ico",
-  "author": "RedRock49",
+  "author": "RedRock49 <nikitash496@outlook.com>",
   "name": "reactive-weather",
   "artifactName": "Reactive_Weather-${version}.${ext}",
   "executableName": "Reactive_Weather",

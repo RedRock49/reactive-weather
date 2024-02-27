@@ -372,7 +372,7 @@ Forecast Component Stylying
   font-size: 1rem;
 }
 .hourlyForecastConditionsSvg{
-  height: fit-content;
+  width: fit-content;
 }
 .hourlyForecastTemp{
   color: #000;

@@ -8,7 +8,7 @@ const SideBar = () =>{
     return(
         <header className='sideBar'>
           <div id="searchField">
-            <input type='search' id='searchBar' placeholder='Search...'/>
+            <input type='search' id='searchBar' placeholder='Поиск...'/>
             <button id='searchButton' onClick={search}><Image src="./Button_Icons/Search.svg" height={35} width={35} alt="Search Icon" /></button>
           </div>
           <ul id='favouriteCityList'>
