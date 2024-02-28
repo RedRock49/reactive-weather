@@ -1,21 +1,22 @@
-const { app, BrowserWindow } = require("electron");
+const { app, Tray, Menu, nativeImage, BrowserWindow } = require("electron");
 const serve = require("electron-serve");
 const path = require("path");
 
-const appServe = app.isPackaged ? serve({
-  directory: path.join(__dirname, "../out")
-}) : null;
+const appServe = app.isPackaged
+  ? serve({
+      directory: path.join(__dirname, "../out"),
+    })
+  : null;
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js")
+      preload: path.join(__dirname, "preload.js"),
     },
     autoHideMenuBar: true,
   });
-
   if (app.isPackaged) {
     appServe(win).then(() => {
       win.loadURL("app://-");
@@ -27,14 +28,50 @@ const createWindow = () => {
       win.webContents.reloadIgnoringCache();
     });
   }
-}
+};
+
+const createWidgetWindow = () => {
+  const widget = new BrowserWindow({
+    width: 200,
+    height: 150,
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+    },
+    frame: false,
+    autoHideMenuBar: true,
+    movable: true,
+  });
+  if (app.isPackaged) {
+    appServe(widget).then(() => {
+      widget.loadURL("app://-/widget");
+    });
+  } else {
+    widget.loadURL("http://localhost:3000/widget");
+    //widget.webContents.openDevTools();
+    widget.webContents.on("did-fail-load", (e, code, desc) => {
+      widget.webContents.reloadIgnoringCache();
+    });
+  }
+};
 
 app.on("ready", () => {
-    createWindow();
-});
+  createWindow();
+  createWidgetWindow();
+  /* const icon = nativeImage.createFromPath("build/icon.ico");
+  tray = new Tray(icon);
 
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Item1", type: "radio" },
+    { label: "Item2", type: "radio" },
+    { label: "Item3", type: "radio", checked: true },
+    { label: "Item4", type: "radio" },
+  ]);
+
+  tray.setToolTip("This is my application");
+  tray.setContextMenu(contextMenu); */
+});
 app.on("window-all-closed", () => {
-    if(process.platform !== "darwin"){
-        app.quit();
-    }
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
