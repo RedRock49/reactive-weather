@@ -32,7 +32,7 @@ const createWindow = () => {
 
 const createWidgetWindow = () => {
   const widget = new BrowserWindow({
-    width: 200,
+    width: 600,
     height: 150,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -40,6 +40,7 @@ const createWidgetWindow = () => {
     frame: false,
     autoHideMenuBar: true,
     movable: true,
+    focusable: false,
   });
   if (app.isPackaged) {
     appServe(widget).then(() => {

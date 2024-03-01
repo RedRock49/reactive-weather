@@ -1,3 +1,38 @@
 * {
     -webkit-app-region: drag;
 }
+
+body {
+    display: fixed;
+    background-image: url("/Forecast_Backgrounds/Sunny.jpg");
+    background-position: 0% 30%;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.mainContainer {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem;
+}
+.CondCityContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-left: 3rem;
+}
+#PrescImage {
+    margin-right: 3rem;
+}
+#TemperatureText {
+    font-size: 32pt;
+    font-family: Inter;
+}
+#ConditionText {
+    font-size: 24pt;
+}
+#CityNameText {
+    font-size: 15pt;
+}

@@ -100,10 +100,8 @@ a {
     text-decoration: none;
 }
 
-@media (prefers-color-scheme: light) {
-    html {
-        color-scheme: dark;
-    }
+html {
+    color-scheme: light;
 }
 
 .sideBar {

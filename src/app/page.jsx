@@ -90,7 +90,7 @@ export function search() {
 
 async function fetchData() {
   let geoCode;
-  let apiKey = ""; //"aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5"; //API KEY PLACEHOLDER
+  let apiKey = "aCgdk9GDCR8SdKonAnP1BPxAcIMOgVz5"; //API KEY PLACEHOLDER
   let lang = "ru-ru";
   let geoDetails = true;
   let topLevel = false;
@@ -101,6 +101,8 @@ async function fetchData() {
   let data = await response.json();
   geoCode = data[0].Key;
   document.getElementById("selectedCityName").innerHTML = data[0].LocalizedName;
+
+  localStorage.setItem("CityName", data[0].LocalizedName);
 
   //Current conditions request settings
   let CondDetails = true;
@@ -259,6 +261,8 @@ async function fetchData() {
   let hourlyForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${geoCode}?apikey=${apiKey}&language=${lang}&details=${hourlyDetails}&metric=${hourlyIsMetric}`;
   response = await fetch(hourlyForecastUrl);
   data = await response.json();
+
+  localStorage.setItem("current", JSON.stringify(data[0])); //Store info for widget to work with
 
   let list = document.getElementById("listOfHForecasts");
   if (list.childNodes.length != 1) {
