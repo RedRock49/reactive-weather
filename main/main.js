@@ -33,7 +33,7 @@ const createWindow = () => {
 const createWidgetWindow = () => {
   const widget = new BrowserWindow({
     width: 600,
-    height: 150,
+    height: 148,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },

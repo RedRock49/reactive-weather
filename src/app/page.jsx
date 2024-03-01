@@ -369,10 +369,7 @@ async function fetchData() {
         break;
       case 43:
       case 44:
-        forecastImage.setAttribute(
-          "src",
-          "./Forecast_Icons/Cloudy_anytime.svg",
-        ); //snow(moon)
+        forecastImage.setAttribute("src", "./Forecast_Icons/Snow_moon.svg"); //snow(moon)
         break;
     }
     list.appendChild(forecast);
