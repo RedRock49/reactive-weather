@@ -59,9 +59,9 @@ const createWidgetWindow = () => {
 app.on("ready", () => {
   createWindow();
   createWidgetWindow();
-  const icon = nativeImage.createFromPath(path.join(__dirname, "favicon.ico"));
+  const icon = nativeImage.createFromPath(path.join(__dirname, "icon.ico"));
 
-  tray = new Tray(icon.resize({width:16}));
+  tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
     { label: "Quit", click: () => {
@@ -70,5 +70,5 @@ app.on("ready", () => {
   ]);
 
   tray.setToolTip("Reactive Weather");
-  tray.setContextMenu(contextMenu); 
+  tray.setContextMenu(contextMenu);  
 });
