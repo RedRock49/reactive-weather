@@ -111,10 +111,13 @@ async function fetchData() {
   response = await fetch(CurrentConditionsUrl);
   data = await response.json();
 
+
   let sign = "";
   if (data[0].Temperature.Metric.Value > 0) {
     sign = "+";
   }
+  localStorage.setItem("sign",sign)
+  localStorage.setItem("current", JSON.stringify(data[0])) //Store info for widget to work with
 
   document.getElementById("Wind").innerHTML =
     `Ветер: ${data[0].Wind.Direction.Localized} ${Math.round(data[0].Wind.Speed.Metric.Value)}км/ч`;
@@ -262,8 +265,7 @@ async function fetchData() {
   response = await fetch(hourlyForecastUrl);
   data = await response.json();
 
-  localStorage.setItem("current", JSON.stringify(data[0])); //Store info for widget to work with
-
+  
   let list = document.getElementById("listOfHForecasts");
   if (list.childNodes.length != 1) {
     for (let i = 0; i < 12; i++) {

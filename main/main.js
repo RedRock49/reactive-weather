@@ -19,7 +19,7 @@ const createWindow = () => {
   });
   if (app.isPackaged) {
     appServe(win).then(() => {
-      win.loadURL("app://-");
+      win.loadURL("app://.");
     });
   } else {
     win.loadURL("http://localhost:3000");
@@ -32,7 +32,7 @@ const createWindow = () => {
 
 const createWidgetWindow = () => {
   const widget = new BrowserWindow({
-    width: 600,
+    width: 680,
     height: 148,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -40,11 +40,12 @@ const createWidgetWindow = () => {
     frame: false,
     autoHideMenuBar: true,
     movable: true,
-    focusable: false,
+    skipTaskbar: true,
+    resizable: false,
   });
   if (app.isPackaged) {
     appServe(widget).then(() => {
-      widget.loadURL("app://-/widget");
+      widget.loadURL("app://./widget.html");
     });
   } else {
     widget.loadURL("http://localhost:3000/widget");
@@ -58,21 +59,16 @@ const createWidgetWindow = () => {
 app.on("ready", () => {
   createWindow();
   createWidgetWindow();
-  /* const icon = nativeImage.createFromPath("build/icon.ico");
-  tray = new Tray(icon);
+  const icon = nativeImage.createFromPath(path.join(__dirname, "favicon.ico"));
+
+  tray = new Tray(icon.resize({width:16}));
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Item1", type: "radio" },
-    { label: "Item2", type: "radio" },
-    { label: "Item3", type: "radio", checked: true },
-    { label: "Item4", type: "radio" },
+    { label: "Quit", click: () => {
+      app.quit();
+    } },
   ]);
 
-  tray.setToolTip("This is my application");
-  tray.setContextMenu(contextMenu); */
-});
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  tray.setToolTip("Reactive Weather");
+  tray.setContextMenu(contextMenu); 
 });

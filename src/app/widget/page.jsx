@@ -7,9 +7,10 @@ import Image from "next/image";
 export default function Page() {
   useEffect(() => {
     const currentCond = JSON.parse(localStorage.getItem("current"));
-    document.getElementById("TemperatureText").innerHTML =
-      Math.round(currentCond.Temperature.Value) + "°";
-    document.getElementById("ConditionText").innerHTML = currentCond.IconPhrase;
+    const sign = localStorage.getItem("sign")
+    document.getElementById("TemperatureText").innerHTML = sign + 
+      Math.round(currentCond.Temperature.Metric.Value) + "°";
+    document.getElementById("ConditionText").innerHTML = currentCond.WeatherText;
     document.getElementById("CityNameText").innerHTML =
       localStorage.getItem("CityName");
     var imageEl = document.getElementById("PrescImage");
@@ -112,7 +113,6 @@ export default function Page() {
         imageEl.setAttribute("src", "./Forecast_Icons/Moon.svg"); //Moon
         containerImage.style.backgroundImage =
           "url('./Forecast_Backgrounds/Moon.jpg')";
-        containerImage.style.color = "#4d4d4d";
         imageEl.setAttribute("width", 80);
         imageEl.setAttribute("height", 80);
         break;
@@ -144,6 +144,7 @@ export default function Page() {
         imageEl.setAttribute("height", 100);
         break;
     }
+    setInterval(() => {location.reload()}, 30000);
   });
 
   return (

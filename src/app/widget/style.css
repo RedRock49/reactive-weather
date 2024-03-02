@@ -5,6 +5,9 @@
 body {
     display: fixed;
 }
+html{
+    overflow-y:hidden;
+}
 .mainContainer {
     display: flex;
     align-items: center;
@@ -12,6 +15,7 @@ body {
     background-image: url("/Forecast_Backgrounds/Sunny.jpg");
     background-position: 0% 25%;
     background-size: cover;
+    min-height: 148px;
 }
 .CondCityContainer {
     display: flex;
@@ -19,6 +23,7 @@ body {
     align-items: start;
     justify-content: center;
     margin-left: 3rem;
+    margin-right: 3rem;
 }
 #PrescImage {
     margin-right: 3rem;
