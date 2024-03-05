@@ -102,7 +102,7 @@ async function fetchData() {
   geoCode = data[0].Key;
   document.getElementById("selectedCityName").innerHTML = data[0].LocalizedName;
 
-  localStorage.setItem("CityName", data[0].LocalizedName);
+  localStorage.setItem("cityName", data[0].LocalizedName);
 
   //Current conditions request settings
   let CondDetails = true;

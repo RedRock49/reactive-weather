@@ -39,7 +39,6 @@ const createWidgetWindow = () => {
     },
     frame: false,
     autoHideMenuBar: true,
-    movable: true,
     skipTaskbar: true,
     resizable: false,
   });
@@ -49,7 +48,6 @@ const createWidgetWindow = () => {
     });
   } else {
     widget.loadURL("http://localhost:3000/widget");
-    //widget.webContents.openDevTools();
     widget.webContents.on("did-fail-load", (e, code, desc) => {
       widget.webContents.reloadIgnoringCache();
     });
@@ -64,10 +62,17 @@ app.on("ready", () => {
   tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Quit", click: () => {
+    {label: "Показать", click: () =>{
+      createWindow();
+    }},
+    { label: "Выход", click: () => {
       app.quit();
-    } },
+    }},
   ]);
+
+  tray.on('double-click', () => {
+    createWindow();
+  });
 
   tray.setToolTip("Reactive Weather");
   tray.setContextMenu(contextMenu);  
